@@ -39,6 +39,6 @@ class FaceRegisterSerializer(serializers.Serializer):
         encodings = face_recognition.face_encodings(image)
         if len(encodings) == 0:
             raise serializers.ValidationError("No face detected")
-        user.face_encoding = encodings[0].tobytes()
+        user.face_encoding = encodings[0].astype(np.float64).tobytes()
         user.save()
         return user
